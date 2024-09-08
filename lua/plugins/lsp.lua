@@ -12,7 +12,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
           require('mason-lspconfig').setup({
-            ensure_installed = { "lua_ls", "rust_analyzer", "zls", "gopls", "yamlls", "emmet_ls", "tailwindcss", "tsserver" }
+            ensure_installed = { "lua_ls", "rust_analyzer", "zls", "gopls", "yamlls", "emmet_ls", "tailwindcss", "ts_ls" }
           })
         end,
       },
