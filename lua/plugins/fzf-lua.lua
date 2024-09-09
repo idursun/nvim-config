@@ -8,6 +8,7 @@ return {
       files = {
         cwd_prompt = false,
       },
+      file_ignore_patterns = { "^deps/", "^_build/", "^.*/node_modules/" },
     })
     local actions = require('fzf-lua')
     vim.keymap.set('n', '<leader>ff', function() actions.files({ cmd = "rg --files" }) end, {})
