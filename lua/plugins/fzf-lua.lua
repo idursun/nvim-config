@@ -13,6 +13,7 @@ return {
     local actions = require('fzf-lua')
     vim.keymap.set('n', '<leader>ff', function() actions.files({ cmd = "rg --files" }) end, {})
     vim.keymap.set('n', '<leader>fg', actions.grep_project, {})
+    vim.keymap.set('n', '<leader>fr', actions.buffers, {})
     vim.keymap.set('n', '<leader>s', actions.lsp_document_symbols, {})
   end,
 }
