@@ -122,11 +122,17 @@ return {
       })
     end,
   },
-  "rafamadriz/friendly-snippets",
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "l3mon4d3/luasnip",
+      {"l3mon4d3/luasnip",
+        dependencies = {
+          "rafamadriz/friendly-snippets",
+        },
+        config = function ()
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+      },
       "hrsh7th/cmp-nvim-lsp",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-buffer",
