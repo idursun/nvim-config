@@ -22,7 +22,8 @@ return {
         "zig",
         "query",
         "markdown",
-        "markdown_inline"
+        "markdown_inline",
+        "go",
       },
     })
   end,
