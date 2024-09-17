@@ -12,7 +12,7 @@ return {
   },
   keys = {
     {
-      "<leader>t",
+      "<leader>ur",
       function()
         require("neotest").run.run({ suite = false })
       end,
