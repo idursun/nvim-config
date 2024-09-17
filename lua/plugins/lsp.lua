@@ -26,9 +26,12 @@ return {
       require('mason').setup({})
       local lsp_config = require('lspconfig')
       local mason_lspconfig = require('mason-lspconfig')
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
       local servers = mason_lspconfig.get_installed_servers()
       for _, server in ipairs(servers) do
-        local opts = {}
+        local opts = {
+          capabilities = capabilities,
+        }
         local has_custom_opts, custom_opts = pcall(require, "plugins.languages." .. server)
         if has_custom_opts then
           opts = vim.tbl_deep_extend("force", opts, custom_opts)
