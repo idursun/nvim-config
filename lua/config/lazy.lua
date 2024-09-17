@@ -51,8 +51,6 @@ require("lazy").setup({
     { "windwp/nvim-ts-autotag" },
     -- import your plugins
     { import = "plugins" },
-    { import = "plugins.languages.elixir" },
-    { import = "plugins.languages.go" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.

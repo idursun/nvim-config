@@ -24,52 +24,21 @@ return {
     },
     config = function()
       require('mason').setup({})
+      local lsp_config = require('lspconfig')
+      local mason_lspconfig = require('mason-lspconfig')
+      local servers = mason_lspconfig.get_installed_servers()
+      for _, server in ipairs(servers) do
+        local opts = {}
+        local has_custom_opts, custom_opts = pcall(require, "plugins.languages." .. server)
+        if has_custom_opts then
+          opts = vim.tbl_deep_extend("force", opts, custom_opts)
+        end
+        if lsp_config[server] then
+          lsp_config[server].setup(opts)
+        end
+      end
 
-      local lspconfig = require('lspconfig')
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-      lspconfig.lua_ls.setup({
-        settings = {
-          Lua = {
-            hint = { enable = true, },
-          }
-        }
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-        settings = {
-          typescript = {
-            inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayVariableTypeHints = false,
-            }
-          }
-        }
-      })
-      lspconfig.rust_analyzer.setup({})
-      lspconfig.zls.setup({})
-      lspconfig.yamlls.setup({})
-
-      lspconfig.tailwindcss.setup({
-        init_options = {
-          userLanguages = {
-            elixir = "html-eex",
-            eelixir = "html-eex",
-            heex = "html-eex",
-          }
-        },
-        root_dir = lspconfig.util.root_pattern("assets", "tailwind.config.js", ".git"),
-      })
-
-      lspconfig.emmet_ls.setup({
-        capabilities = capabilities,
-        filetypes = { "html", "heex", "eex" }
-      })
+      require('plugins.languages.elixir_lexical')
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
