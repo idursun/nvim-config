@@ -11,6 +11,6 @@ return {
     vim.g.loaded_netrwPlugin = 1
   end,
   keys = {
-    { "<c-n>", ":NvimTreeFindFileToggle<CR>", silent = true },
+    { "<leader>pt", ":NvimTreeFindFileToggle<CR>", silent = true },
   },
 }
