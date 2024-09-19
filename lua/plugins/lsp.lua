@@ -46,6 +46,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
           vim.bo[ev.buf].omnifunc = 'v:lua.vim.ls.omnifunc'
 
           local opts = { buffer = ev.buf }
@@ -67,6 +68,15 @@ return {
           vim.keymap.set("n", '<leader>i',
             function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 }) end,
             {})
+
+          if client.supports_method('textDocument/formatting') then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              buffer = ev.buf,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = ev.buf, id = client.id, async = false })
+              end,
+            })
+          end
         end,
       })
     end,
