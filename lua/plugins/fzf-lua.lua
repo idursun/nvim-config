@@ -31,6 +31,20 @@ return {
       end,
       desc = "List document symbols",
     },
+    {
+      "<leader>gi",
+      function()
+        require("fzf-lua").lsp_incoming_calls()
+      end,
+      desc = "List incoming calls",
+    },
+    {
+      "<leader>go",
+      function()
+        require("fzf-lua").lsp_outgoing_calls()
+      end,
+      desc = "List outgoing calls",
+    },
   },
   config = function()
     -- calling `setup` is optional for customization
